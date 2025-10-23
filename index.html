@@ -1,126 +1,615 @@
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Professeur Alphonse Maindo Monga</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; color: #333;}
-    header, footer { background: #004080; color: white; text-align: center; padding: 20px;}
-    nav ul { list-style: none; padding: 0; display: flex; justify-content: center; gap: 15px;}
-    nav a { color: white; text-decoration: none; font-weight: bold;}
-    main { padding: 20px; max-width: 900px; margin: auto;}
-    section { margin-bottom: 40px;}
-.gallery { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;}
-.gallery img { width: 280px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.3);}
-    form { display: flex; flex-direction: column; gap: 10px; max-width: 500px; margin: auto;}
-    input, textarea, button { padding: 10px; font-size: 1em;}
-    button { background: #004080; color: white; border: none; cursor: pointer;}
-    #languageSwitcher { margin-top: 10px;}
-    iframe { border: none; width: 100%; height: 400px;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Web Professionnel</title>
+    <style>
+        /* RESET ET STYLES DE BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* POLICES HIÉRARCHISÉES */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #34495e;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        /* MENU FIXE */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* HERO SECTION AVEC EFFET ZOOM */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/random/1920x1080/?nature');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            transform: scale(1.1);
+            transition: transform 10s ease;
+            z-index: -1;
+        }
+
+        .hero:hover::before {
+            transform: scale(1.2);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #f0f0f0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* SECTIONS */
+        section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: #3498db;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* GALERIE LIGHTBOX */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            color: #3498db;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        .lightbox-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .lightbox-nav button:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* FORMULAIRE WEB3FORMS */
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Professeur Alphonse Maindo Monga</h1>
-    <p data-lang="fr">Chercheur en sciences politiques</p>
-    <p data-lang="en" style="display:none;">Political Science Researcher</p>
-    <nav>
-      <ul>
-        <li><a href="#biographie">Biographie</a></li>
-        <li><a href="#activites">Activités</a></li>
-        <li><a href="#publications">Publications</a></li>
-        <li><a href="#galerie">Galerie</a></li>
-        <li><a href="#chronologie">Chronologie</a></li>
-        <li><a href="#medias">Médias</a></li>
-        <li><a href="#video">Vidéo</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <select id="languageSwitcher">
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-    </select>
-  </header>
+    <!-- MENU FIXE -->
+    <header>
+        <nav>
+            <div class="logo">MonSitePro</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">☰</div>
+        </nav>
+    </header>
 
-  <main>
-    <section id="biographie">
-      <h2 data-lang="fr">Biographie</h2>
-      <h2 data-lang="en" style="display:none;">Biography</h2>
-      <p data-lang="fr">Professeur ordinaire à l’Université de Kisangani, spécialiste des conflits, de la gouvernance et de la démocratie en Afrique centrale.</p>
-      <p data-lang="en" style="display:none;">Full professor at the University of Kisangani, specializing in conflict, governance, and democracy in Central Africa.</p>
+    <!-- SECTION HERO AVEC EFFET ZOOM -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Solutions Professionnelles Innovantes</h1>
+            <p>Nous créons des expériences digitales exceptionnelles pour propulser votre entreprise vers l'avant.</p>
+            <a href="#contact" class="btn">Nous contacter</a>
+        </div>
     </section>
 
-    <section id="activites">
-      <h2 data-lang="fr">Activités</h2>
-      <h2 data-lang="en" style="display:none;">Activities</h2>
-      <ul>
-        <li data-lang="fr">Conférences internationales</li>
-        <li data-lang="en" style="display:none;">International conferences</li>
-        <li data-lang="fr">Consultations pour ONG et institutions</li>
-        <li data-lang="en" style="display:none;">Consulting for NGOs and institutions</li>
-        <li data-lang="fr">Encadrement académique</li>
-        <li data-lang="en" style="display:none;">Academic mentoring</li>
-      </ul>
+    <!-- SECTION SERVICES -->
+    <section id="services">
+        <h2 class="section-title">Nos Services</h2>
+        <div class="services-container">
+            <div class="service-item">
+                <h3>Design Web</h3>
+                <p>Création de sites web modernes et responsifs qui captivent votre audience et renforcent votre image de marque.</p>
+            </div>
+            <div class="service-item">
+                <h3>Développement Web</h3>
+                <p>Développement de solutions web sur mesure avec les dernières technologies pour une performance optimale.</p>
+            </div>
+            <div class="service-item">
+                <h3>Marketing Digital</h3>
+                <p>Stratégies de marketing digital complètes pour augmenter votre visibilité et générer des leads qualifiés.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="publications">
-      <h2 data-lang="fr">Publications</h2>
-      <h2 data-lang="en" style="display:none;">Publications</h2>
-      <ul>
-        <li><strong>Des conflits locaux à la guerre régionale</strong> – L’Harmattan</li>
-        <li><strong>La républiquette de l’Ituri</strong> – Politique africaine (2003)</li>
-        <li><strong>Survivre à la guerre des autres</strong> – Politique africaine (2001)</li>
-      </ul>
-[20/10, 05:43] Microsoft Copilote: <p><a href="https://shs.cairn.info/publications-de-alphonse-maindo-monga-ngonga--90659?lang=fr" target="_blank">Voir plus sur Cairn.info</a></p>
-    </section>
-
+    <!-- SECTION GALERIE -->
     <section id="galerie">
-      <h2 data-lang="fr">Galerie</h2>
-      <h2 data-lang="en" style="display:none;">Gallery</h2>
-      <div class="gallery">
-        <img src="https://actualite.cd/sites/default/files/styles/large/public/2022-06/maindo.jpg" alt="Conférence à Kisangani">
-        <img src="https://laprunellerdc.cd/wp-content/uploads/2023/05/Prof-Maindo.jpg" alt="Déclaration publique">
-        <img src="https://blogs.mediapart.fr/system/files/2022/07/17/maindo-mediapart.jpg" alt="Portrait académique">
-      </div>
+        <h2 class="section-title">Notre Galerie</h2>
+        <div class="gallery">
+            <div class="gallery-item" data-index="0">
+                <img src="https://source.unsplash.com/random/600x400/?design" alt="Projet design">
+            </div>
+            <div class="gallery-item" data-index="1">
+                <img src="https://source.unsplash.com/random/600x400/?development" alt="Projet développement">
+            </div>
+            <div class="gallery-item" data-index="2">
+                <img src="https://source.unsplash.com/random/600x400/?marketing" alt="Projet marketing">
+            </div>
+            <div class="gallery-item" data-index="3">
+                <img src="https://source.unsplash.com/random/600x400/?technology" alt="Projet technologie">
+            </div>
+            <div class="gallery-item" data-index="4">
+                <img src="https://source.unsplash.com/random/600x400/?business" alt="Projet business">
+            </div>
+            <div class="gallery-item" data-index="5">
+                <img src="https://source.unsplash.com/random/600x400/?creative" alt="Projet créatif">
+            </div>
+        </div>
     </section>
 
-    <section id="chronologie">
-      <h2 data-lang="fr">Chronologie des interventions</h2>
-      <h2 data-lang="en" style="display:none;">Timeline of Public Engagements</h2>
-      <ul>
-        <li><strong>2001</strong> – Publication dans Politique africaine</li>
-        <li><strong>2003</strong> – Analyse du conflit en Ituri</li>
-        <li><strong>2015</strong> – Déclaration sur le dialogue politique</li>
-        <li><strong>2022</strong> – Intervention sur les menaces politiques</li>
-        <li><strong>2025</strong> – Interview sur TV5Monde</li>
-      </ul>
+    <!-- LIGHTBOX -->
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-nav">
+            <button class="lightbox-prev">&#10094;</button>
+            <button class="lightbox-next">&#10095;</button>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="">
+        </div>
+    </div>
+
+    <!-- SECTION À PROPOS -->
+    <section id="apropos">
+        <h2 class="section-title">À Propos de Nous</h2>
+        <p>Nous sommes une équipe de professionnels passionnés par la création de solutions digitales innovantes. Avec plus de 10 ans d'expérience, nous aidons les entreprises à se développer en ligne grâce à des stratégies sur mesure et des technologies de pointe.</p>
+        <p>Notre approche combine créativité, expertise technique et compréhension approfondie des besoins de nos clients pour délivrer des résultats exceptionnels.</p>
     </section>
 
-    <section id="medias">
-      <h2 data-lang="fr">Interventions publiques et médias</h2>
-      <h2 data-lang="en" style="display:none;">Public Talks and Media</h2>
-      <ul>
-        <li><a href="https://www.radiookapi.net/2024/05/23/emissions/linvite-du-jour/le-professeur-alphonse-maindo-appelle-agir-contre-le-changement" target="_blank">Radio Okapi – Climat et gouvernance</a></li>
-        <li><a href="https://ouragan.cd/2023/04/alphonse-maindo-a-lunion-sacree-tous-brulent-du-meme-desir-dargent-et-de-pouvoir" target="_blank">Ouragan.cd – Analyse politique</a></li>
-        <li><a href="https://laprunellerdc.info/sud-kivu-tres-critique-le-prof-alphonse-maindo-parle-de-la-cryptique-pcr-et-du-systeme-corbillard-dans-le-contexte-congolais-interview-la-prunellerdc/" target="_blank">La Prunelle RDC – Interview intellectuelle</a></li>
-      </ul>
-    </section>
-
-    <section id="video">
-      <h2 data-lang="fr">Intervention vidéo</h2>
-      <h2 data-lang="en" style="display:none;">Video Interview</h2>
-      <iframe src="https://www.youtube.com/embed/R4wUjVvvuzE" title="Alphonse Maindo sur les enjeux du conflit dans l'Est de la RDC" allowfullscreen></iframe>
-    </section>
-
+    <!-- SECTION CONTACT -->
     <section id="contact">
-      <h2 data-lang="fr">Contact</h2>
-      <h2 data-lang="en" style="display:none;">Contact</h2>
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="e032e789-7a9f-4b52-9ca0-91e838645ab9">
-        <input type="text" name="name" placeholder="Nom / Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <textarea name="message" placeholder="Message" required></textarea>
-        <button type="submit">Envoyer /
+        <h2 class="section-title">Contactez-nous</h2>
+        <div class="contact-form">
+            <form action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Sujet</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Envoyer le message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 MonSitePro. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // MENU TOGGLE POUR MOBILE
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // SCROLL DOUX VERS LES SECTIONS
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Fermer le menu mobile s'il est ouvert
+                    document.querySelector('.nav-links').classList.remove('active');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // GALERIE LIGHTBOX
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-content img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const lightboxPrev = document.querySelector('.lightbox-prev');
+        const lightboxNext = document.querySelector('.lightbox-next');
+        
+        let currentImageIndex = 0;
+        
+        // Ouvrir la lightbox
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                currentImageIndex = parseInt(this.getAttribute('data-index'));
+                updateLightboxImage();
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+            });
+        });
+        
+        // Fermer la lightbox
+        lightboxClose.addEventListener('click', function() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Rétablir le défilement
+        });
+        
+        // Navigation dans la lightbox
+        lightboxPrev.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            updateLightboxImage();
+        });
+        
+        lightboxNext.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            updateLightboxImage();
+        });
+        
+        // Mettre à jour l'image dans la lightbox
+        function updateLightboxImage() {
+            const imgSrc = galleryItems[currentImageIndex].querySelector('img').src;
+            lightboxImg.src = imgSrc;
+        }
+        
+        // Fermer la lightbox avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // CHANGEMENT DE STYLE DU HEADER AU SCROLL
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
+</body>
+          </html>
